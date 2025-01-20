@@ -20,7 +20,7 @@ func (m Map[K, V]) Get(key K) V {
 // с порядком значений из метода Values.
 func (m Map[K, V]) Keys() []K {
 	var keys []K
-	for k, _ := range m {
+	for k := range m {
 		keys = append(keys, k)
 	}
 	return keys
