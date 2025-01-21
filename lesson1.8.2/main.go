@@ -1,4 +1,4 @@
-// начало решения
+package main // начало решения
 
 // ZipMap возвращает карту, где ключи - элементы из keys, а значения - из vals.
 func ZipMap[K comparable, V any](keys []K, vals []V) map[K]V {

@@ -2,11 +2,7 @@ package main
 
 // не удаляйте импорты, они используются при проверке
 import (
-	"fmt"
-	"math/rand"
-	"os"
 	"strings"
-	"testing"
 )
 
 // Words работает со словами в строке.
