@@ -21,34 +21,23 @@ func say(id int, phrase string) {
 // makePool создает пул на n обработчиков
 // возвращает функции handle и wait
 func makePool(n int, handler func(int, string)) (func(string), func()) {
-
 	pool := make(chan int, n)
-	done := make(chan struct{})
 
 	for i := 0; i < n; i++ {
 		pool <- i
 	}
 
-	taskCounter := 0
-
 	handle := func(phrase string) {
 		id := <-pool
-		taskCounter++
 		go func() {
-			defer func() {
-				pool <- id
-				taskCounter--
-				if taskCounter == 0 {
-					close(done)
-				}
-			}()
 			handler(id, phrase)
+			pool <- id
 		}()
 	}
 
 	wait := func() {
-		if taskCounter > 0 {
-			<-done
+		for i := 0; i < n; i++ {
+			<-pool
 		}
 	}
 
